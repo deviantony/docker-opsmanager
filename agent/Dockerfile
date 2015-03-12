@@ -11,4 +11,4 @@ RUN cd /tmp \
 	&& curl -OL https://mms.mongodb.com/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.deb \
 	&& dpkg -i mongodb-mms-automation-agent-manager_latest_amd64.deb
 
-RUN mkdir /data && chown mongod:mongod /data
+RUN mkdir /data && chown mongodb:mongodb /data
