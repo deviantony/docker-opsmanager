@@ -12,7 +12,7 @@ database:
   - "27017:27017"
 
 consul:
-  command: -server -bootstrap -advertise 192.168.1.50  
+  command: -server -bootstrap -advertise ROUTABLE_IP  
   image: progrium/consul:latest
   ports:
   - "8500:8500"
