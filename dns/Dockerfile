@@ -11,7 +11,7 @@ COPY config/dnsmasq.conf /etc/dnsmasq.conf
 COPY dnsmasq.ctmpl /etc/consul-templates/dnsmasq.ctmpl
 
 RUN mkdir -p /var/log/supervisor
-ADD config/supervisord.conf /etc/supervisor/conf.d/docker-gen.conf
+COPY config/supervisord.conf /etc/supervisor/conf.d/dnsmasq.conf
 
 EXPOSE 53/udp
 
