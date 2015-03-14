@@ -37,7 +37,7 @@ $ docker build -t "mms-agent" agent/
 
 ## Start the stack
 
-First, you'll need to update the file ops-manager/config/conf-mms.properties and change the *ROUTABLE_IP* with your IP address.
+First, you'll need to update the files *ops-manager/config/conf-mms.properties* and *docker-compose.yml*. Change the *ROUTABLE_IP* with your IP address.
 
 ```
 $ docker-compose build && docker-compose up
