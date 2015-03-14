@@ -5,16 +5,30 @@ opsmanager:
   ports:
   - "8080:8080"
   - "8081:8081"
-  volumes:
-  - "/tmp/mms:/opt/mongodb/mms/logs/"
 
 database:
   image: mongo:latest
   ports:
   - "27017:27017"
 
-# database2:
-#   image: mongo:latest
-#   command: mongod --port 27018
-#   ports:
-#   - "27018:27018"
+consul:
+  command: -server -bootstrap -advertise 192.168.1.50  
+  image: progrium/consul:latest
+  ports:
+  - "8500:8500"
+
+registrator:
+  command: -internal consul://consul:8500
+  image: progrium/registrator:latest
+  links:
+  - consul
+  volumes:
+  - "/var/run/docker.sock:/tmp/docker.sock"
+
+dns:
+  build: dns/
+  ports:
+  - "53:53/udp"
+  privileged: true
+  links:
+  - consul

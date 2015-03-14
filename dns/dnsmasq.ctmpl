@@ -1,0 +1,3 @@
+{{range service "mms-agent"}}
+{{.Address}} {{.Node}}
+{{end}}
