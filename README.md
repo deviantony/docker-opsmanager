@@ -9,23 +9,14 @@ Powered by the following tools:
 * Docker: a portable, lightweight runtime and packaging tool.
 > See: https://www.docker.com/
 
-* Docker-compose: a tool used to manage an application in distributed containers.
+* Docker-compose: a tool for defining and running complex applications with Docker.
 > See: https://docs.docker.com/compose/
 
 * MongoDB Ops Manager: a service for managing, monitoring and backing up a MongoDB infrastructure.
 > See: https://docs.opsmanager.mongodb.com/current/application/
 
-* Consul: a tool for discovering and configuring services in your infrastructure.
-> See: https://www.consul.io/
-
-* Consul-template: a daemon used to populate values from Consul on your filesystem.
-> See: https://github.com/hashicorp/consul-template
-
-* Registrator: a tool that automatically register/deregister Docker containers into Consul.
-> See: https://github.com/gliderlabs/registrator
-
-* Dnsmasq: Lightweight DNS for small networks. 
-> See: http://www.thekelleys.org.uk/dnsmasq/doc.html
+* RawDNS: a direct, raw DNS interface to the Docker API.
+> See: https://github.com/tianon/rawdns
 
 # How-to
 
@@ -37,7 +28,9 @@ $ docker build -t "mms-agent" agent/
 
 ## Start the stack
 
-First, you'll need to update the files *ops-manager/config/conf-mms.properties* and *docker-compose.yml*. Change the *ROUTABLE_IP* with your IP address.
+First, you'll need to update the file *ops-manager/config/conf-mms.properties* and change the *ROUTABLE_IP* with your IP address.
+
+Then start the stack:
 
 ```
 $ docker-compose build && docker-compose up
@@ -89,9 +82,8 @@ Now is the time to start these containers (replace the *BASE_URL*, *MMS_GROUP_ID
 
 ```
 $ docker run --rm \
-  -e "SERVICE_NAME=mms-agent" \
   --dns $(docker inspect -f '{{.NetworkSettings.IPAddress}}' dockeropsmanager_dns_1) \
-  -p 27000 \
+  --dns-search docker \
   mms-agent \
   /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent -mmsBaseUrl=BASE_URL -mmsGroupId=MMS_GROUP_ID -mmsApiKey=MMS_API_KEY
 
