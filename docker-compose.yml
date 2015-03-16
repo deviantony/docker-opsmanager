@@ -11,24 +11,10 @@ database:
   ports:
   - "27017:27017"
 
-consul:
-  command: -server -bootstrap -advertise ROUTABLE_IP
-  image: progrium/consul:latest
-  ports:
-  - "8500:8500"
-
-registrator:
-  command: -internal consul://consul:8500
-  image: progrium/registrator:latest
-  links:
-  - consul
-  volumes:
-  - "/var/run/docker.sock:/tmp/docker.sock"
-
 dns:
   build: dns/
   ports:
   - "53:53/udp"
   privileged: true
-  links:
-  - consul
+  volumes:
+  - "/var/run/docker.sock:/var/run/docker.sock"
