@@ -20,4 +20,4 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/ops-manager.conf
 COPY startup.sh /tmp/startup.sh
 RUN chmod +x /tmp/startup.sh
 
-ENTRYPOINT [ "/tmp/strtup.sh" ]
+ENTRYPOINT [ "/tmp/startup.sh" ]
